@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Farmacia - Gestión</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+    <h1>Farmacia - Gestión de Medicamentos y Devoluciones</h1>
+</header>
+
+<div class="container">
+
+    <section class="card">
+        <h2>Agregar Medicamento</h2>
+
+        <input id="nombreMed" type="text" placeholder="Nombre del medicamento">
+        <input id="cantidadMed" type="number" placeholder="Cantidad">
+        <button onclick="agregarMedicamento()">Agregar</button>
+    </section>
+
+    <section class="card">
+        <h2>Desapilar Medicamento</h2>
+        <button onclick="desapilarMedicamento()">Desapilar</button>
+    </section>
+
+    <section class="card">
+        <h2>Mostrar Pila de Medicamentos</h2>
+        <button onclick="mostrarPilaMedicamentos()">Mostrar</button>
+        <pre id="resultadoPilaMedicamentos"></pre>
+    </section>
+
+    <section class="card">
+        <h2>Registrar Devolución</h2>
+        <input id="nombreDev" type="text" placeholder="Medicamento devuelto">
+        <input id="motivoDev" type="text" placeholder="Motivo">
+        <button onclick="agregarDevolucion()">Agregar</button>
+    </section>
+
+    <section class="card">
+        <h2>Mostrar Pila de Devoluciones</h2>
+        <button onclick="mostrarPilaDevoluciones()">Mostrar</button>
+        <pre id="resultadoPilaDevoluciones"></pre>
+    </section>
+
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
