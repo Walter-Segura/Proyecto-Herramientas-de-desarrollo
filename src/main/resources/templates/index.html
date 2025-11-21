@@ -2,50 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Farmacia - Gestión</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Farmacia - Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<header>
-    <h1>Farmacia - Gestión de Medicamentos y Devoluciones</h1>
-</header>
+<body class="bg-light">
 
-<div class="container">
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">Farmacia</a>
+    </div>
+</nav>
 
-    <section class="card">
-        <h2>Agregar Medicamento</h2>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Bienvenido al Sistema de Farmacia</h1>
 
-        <label for="nombreMed"></label><input id="nombreMed" type="text" placeholder="Nombre del medicamento">
-        <label for="cantidadMed"></label><input id="cantidadMed" type="number" placeholder="Cantidad">
-        <button onclick="agregarMedicamento()">Agregar</button>
-    </section>
-
-    <section class="card">
-        <h2>Desapilar Medicamento</h2>
-        <button onclick="desapilarMedicamento()">Desapilar</button>
-    </section>
-
-    <section class="card">
-        <h2>Mostrar Pila de Medicamentos</h2>
-        <button onclick="mostrarPilaMedicamentos()">Mostrar</button>
-        <pre id="resultadoPilaMedicamentos"></pre>
-    </section>
-
-    <section class="card">
-        <h2>Registrar Devolución</h2>
-        <input id="nombreDev" type="text" placeholder="Medicamento devuelto">
-        <input id="motivoDev" type="text" placeholder="Motivo">
-        <button onclick="agregarDevolucion()">Agregar</button>
-    </section>
-
-    <section class="card">
-        <h2>Mostrar Pila de Devoluciones</h2>
-        <button onclick="mostrarPilaDevoluciones()">Mostrar</button>
-        <pre id="resultadoPilaDevoluciones"></pre>
-    </section>
-
+    <div class="d-flex justify-content-center">
+        <a href="medicamentos.html" class="btn btn-success btn-lg">Gestionar Productos</a>
+    </div>
 </div>
 
-<script src="/static/app.js"></script>
 </body>
 </html>
