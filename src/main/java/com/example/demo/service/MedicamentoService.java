@@ -1,10 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Medicamento;
-import com.example.demo.model.PilaMedicamentos;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class MedicamentoService {
