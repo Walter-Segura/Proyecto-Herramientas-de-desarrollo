@@ -1,26 +1,29 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Medicamento;
 import org.springframework.stereotype.Service;
+import com.example.demo.model.Medicamento;
+import com.example.demo.repository.MedicamentoRepository;
+
+import java.util.List;
 
 @Service
 public class MedicamentoService {
 
-    private PilaMedicamentos pilaMedicamentos = new PilaMedicamentos();
+    private final MedicamentoRepository repo;
 
-    public void agregarMedicamento(Medicamento medicamento) {
-        pilaMedicamentos.apilar(medicamento);
+    public MedicamentoService(MedicamentoRepository repo) {
+        this.repo = repo;
     }
 
-    public Medicamento atenderMedicamento() {
-        return pilaMedicamentos.desapilar();
+    public List<Medicamento> listar() {
+        return repo.findAll();
     }
 
-    public boolean pilaVacia() {
-        return pilaMedicamentos.estaVacia();
+    public Medicamento guardar(Medicamento m) {
+        return repo.save(m);
     }
 
-    public String mostrarPila() {
-        return pilaMedicamentos.mostrarPila(); // <-- Este es tu "listar"
+    public void eliminar(Integer id) {
+        repo.deleteById(id);
     }
 }

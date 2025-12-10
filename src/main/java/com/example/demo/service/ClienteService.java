@@ -1,26 +1,29 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Cliente;
 import org.springframework.stereotype.Service;
+import com.example.demo.model.Cliente;
+import com.example.demo.repository.ClienteRepository;
+
+import java.util.List;
 
 @Service
 public class ClienteService {
 
-    private ColaClientes colaClientes = new ColaClientes();
+    private final ClienteRepository repo;
 
-    public void agregarCliente(Cliente cliente) {
-        colaClientes.encolar(cliente);
+    public ClienteService(ClienteRepository repo) {
+        this.repo = repo;
     }
 
-    public Cliente atenderCliente() {
-        return colaClientes.desencolar();
+    public List<Cliente> listar() {
+        return repo.findAll();
     }
 
-    public boolean colaVacia() {
-        return colaClientes.estaVacia();
+    public Cliente guardar(Cliente c) {
+        return repo.save(c);
     }
 
-    public String mostrarCola() {
-        return colaClientes.mostrarCola(); // <-- Este es tu "listar"
+    public void eliminar(Integer id) {
+        repo.deleteById(id);
     }
 }

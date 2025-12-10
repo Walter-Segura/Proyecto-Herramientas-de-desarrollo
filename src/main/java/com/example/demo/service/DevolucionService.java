@@ -1,26 +1,25 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Devolucion;
 import org.springframework.stereotype.Service;
+import com.example.demo.model.Devolucion;
+import com.example.demo.repository.DevolucionRepository;
+
+import java.util.List;
 
 @Service
 public class DevolucionService {
 
-    private PilaDevoluciones pilaDevoluciones = new PilaDevoluciones();
+    private final DevolucionRepository repo;
 
-    public void registrarDevolucion(Devolucion devolucion) {
-        pilaDevoluciones.apilar(devolucion);
+    public DevolucionService(DevolucionRepository repo) {
+        this.repo = repo;
     }
 
-    public Devolucion procesarDevolucion() {
-        return pilaDevoluciones.desapilar();
+    public List<Devolucion> listar() {
+        return repo.findAll();
     }
 
-    public boolean pilaVacia() {
-        return pilaDevoluciones.estaVacia();
-    }
-
-    public String mostrarPila() {
-        return pilaDevoluciones.mostrarPila(); // este es tu "listar"
+    public Devolucion guardar(Devolucion d) {
+        return repo.save(d);
     }
 }
