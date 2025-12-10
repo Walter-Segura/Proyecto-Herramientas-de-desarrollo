@@ -42,7 +42,7 @@ function agregarMedicamento() {
 }
 
 function atenderMedicamento() {
-    fetch(`${API_MED}/atender`, { method: "DELETE" })
+    fetch(`${API_MED}/procesar`, { method: "POST" })
         .then(res => res.text())
         .then(msg => {
             alert(msg);

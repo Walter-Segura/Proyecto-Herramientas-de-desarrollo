@@ -16,10 +16,45 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Bienvenido al Sistema de Farmacia</h1>
 
+    <div class="row g-3 justify-content-center mb-4">
+        <div class="col-10 col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h6>Clientes</h6>
+                    <h2 id="countClientes">-</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-10 col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h6>Medicamentos</h6>
+                    <h2 id="countMedicamentos">-</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-10 col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h6>Devoluciones</h6>
+                    <h2 id="countDevoluciones">-</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="d-flex justify-content-center">
         <a href="/medicamentos" class="btn btn-success btn-lg">Gestionar Productos</a>
     </div>
+
+    <p class="text-center mt-3">Estado: <span id="inicioStatus" class="text-muted">Comprobando...</span></p>
 </div>
+
+<!-- al final del body -->
+<script src="/js/inicio.js" defer></script>
+
 
 </body>
 </html>

@@ -19,7 +19,7 @@ function listarDevoluciones() {
                 const row = `
                     <tr>
                         <td>${d.id}</td>
-                        <td>${d.producto}</td>
+                        <td>${d.nombre}</td>
                         <td>${d.motivo}</td>
                     </tr>
                 `;
@@ -29,12 +29,12 @@ function listarDevoluciones() {
 }
 
 function registrarDevolucion() {
-    const producto = document.getElementById("productoDev").value;
+    const nombre = document.getElementById("productoDev").value;
     const motivo = document.getElementById("motivoDev").value;
 
-    const obj = { producto, motivo };
+    const obj = { nombre, motivo };
 
-    fetch(`${API_DEV}/registrar`, {
+    fetch(`${API_DEV}/agregar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(obj)
@@ -42,7 +42,7 @@ function registrarDevolucion() {
 }
 
 function procesarDevolucion() {
-    fetch(`${API_DEV}/procesar`, { method: "DELETE" })
+    fetch(`${API_DEV}/procesar`, { method: "POST" })
         .then(res => res.text())
         .then(msg => {
             alert(msg);
