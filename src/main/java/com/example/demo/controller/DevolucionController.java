@@ -1,35 +1,43 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Devolucion;
+import com.example.demo.model.Medicamento;
 import com.example.demo.service.DevolucionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.MedicamentoService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/devoluciones")
+@CrossOrigin(origins = "*")
 public class DevolucionController {
 
-    @Autowired
-    private DevolucionService devolucionService;
+    private final DevolucionService service;
+    private final MedicamentoService medicamentoService;
 
-    @PostMapping("/registrar")
-    public String registrarDevolucion(@RequestBody Devolucion devolucion) {
-        devolucionService.registrarDevolucion(devolucion);
-        return "Devolución registrada.";
+    public DevolucionController(DevolucionService service, MedicamentoService medicamentoService) {
+        this.service = service;
+        this.medicamentoService = medicamentoService;
     }
 
-    @PostMapping("/procesar")
-    public Devolucion procesarDevolucion() {
-        return devolucionService.procesarDevolucion();
+    @GetMapping
+    public List<Devolucion> listar() {
+        return service.listar();
     }
 
-    @GetMapping("/vacia")
-    public boolean pilaVacia() {
-        return devolucionService.pilaVacia();
-    }
+    @PostMapping
+    public Devolucion guardar(@RequestBody Devolucion d) {
 
-    @GetMapping("/listar")
-    public String mostrarPila() {
-        return devolucionService.mostrarPila();
+        // Validar medicamento
+        Medicamento med = medicamentoService
+                .listar()
+                .stream()
+                .filter(m -> m.getId_medicamento().equals(d.getMedicamento().getId_medicamento()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
+
+        d.setMedicamento(med);
+        return service.guardar(d);
     }
 }

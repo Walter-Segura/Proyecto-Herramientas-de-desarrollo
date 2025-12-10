@@ -2,34 +2,33 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Cliente;
 import com.example.demo.service.ClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
+    private final ClienteService service;
 
-    @PostMapping("/agregar")
-    public String agregarCliente(@RequestBody Cliente cliente) {
-        clienteService.agregarCliente(cliente);
-        return "Cliente agregado correctamente";
+    public ClienteController(ClienteService service) {
+        this.service = service;
     }
 
-    @PostMapping("/atender")
-    public Cliente atenderCliente() {
-        return clienteService.atenderCliente();
+    @GetMapping
+    public List<Cliente> listar() {
+        return service.listar();
     }
 
-    @GetMapping("/vacia")
-    public boolean colaVacia() {
-        return clienteService.colaVacia();
+    @PostMapping
+    public Cliente guardar(@RequestBody Cliente c) {
+        return service.guardar(c);
     }
 
-    @GetMapping("/listar")
-    public String listarClientes() {
-        return clienteService.mostrarCola();
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Integer id) {
+        service.eliminar(id);
     }
 }

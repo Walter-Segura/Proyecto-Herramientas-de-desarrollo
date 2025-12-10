@@ -2,34 +2,33 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Medicamento;
 import com.example.demo.service.MedicamentoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/medicamentos")
+@CrossOrigin(origins = "*")
 public class MedicamentoController {
 
-    @Autowired
-    private MedicamentoService medicamentoService;
+    private final MedicamentoService service;
 
-    @PostMapping("/agregar")
-    public String agregarMedicamento(@RequestBody Medicamento medicamento) {
-        medicamentoService.agregarMedicamento(medicamento);
-        return "Medicamento agregado.";
+    public MedicamentoController(MedicamentoService service) {
+        this.service = service;
     }
 
-    @PostMapping("/atender")
-    public Medicamento atenderMedicamento() {
-        return medicamentoService.atenderMedicamento();
+    @GetMapping
+    public List<Medicamento> listar() {
+        return service.listar();
     }
 
-    @GetMapping("/vacia")
-    public boolean pilaVacia() {
-        return medicamentoService.pilaVacia();
+    @PostMapping
+    public Medicamento guardar(@RequestBody Medicamento m) {
+        return service.guardar(m);
     }
 
-    @GetMapping("/listar")
-    public String mostrarPila() {
-        return medicamentoService.mostrarPila();
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Integer id) {
+        service.eliminar(id);
     }
 }
