@@ -6,6 +6,7 @@ import com.example.demo.service.DevolucionService;
 import com.example.demo.service.MedicamentoService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -38,8 +39,15 @@ public class DevolucionController {
                 .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
 
         d.setMedicamento(med);
+
+        // Registrar fecha si viene null
+        if (d.getFecha() == null) {
+            d.setFecha(LocalDateTime.now());
+        }
+
         return service.guardar(d);
     }
+
 
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Integer id) {

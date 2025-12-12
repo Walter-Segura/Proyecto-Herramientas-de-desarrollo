@@ -36,18 +36,35 @@ function listarDevoluciones() {
 }
 
 // REGISTRAR
-function registrarDevolucion() {
-    const nombre = document.getElementById("productoDev").value;
-    const motivo = document.getElementById("motivoDev").value;
+async function registrarDevolucion() {
+    const nombre = document.getElementById("productoDev").value.trim();
+    const motivo = document.getElementById("motivoDev").value.trim();
 
-    const obj = { nombre, motivo };
+    if (!nombre || !motivo) {
+        alert("Completa los campos.");
+        return;
+    }
 
-    fetch(API_DEV, {
+    // Buscar medicamento por nombre
+    const med = await buscarMedicamentoPorNombre(nombre);
+
+    if (!med) {
+        alert("El medicamento no existe.");
+        return;
+    }
+
+    const obj = {
+        cantidad: 1,   // puedes cambiarlo
+        medicamento: { id_medicamento: med.id_medicamento }
+    };
+
+    fetch("https://farmacia-backend-y367.onrender.com/api/devoluciones", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(obj)
     }).then(() => listarDevoluciones());
 }
+
 
 // ELIMINAR
 function eliminarDevolucion(id) {
@@ -74,3 +91,11 @@ function verificarPilaDevoluciones() {
         .then(res => res.text())
         .then(msg => alert(msg));
 }
+
+async function buscarMedicamentoPorNombre(nombre) {
+    const res = await fetch("https://farmacia-backend-y367.onrender.com/api/medicamentos");
+    const lista = await res.json();
+
+    return lista.find(m => m.nombre.toLowerCase() === nombre.toLowerCase());
+}
+
