@@ -31,10 +31,10 @@ async function cargarClientes() {
     clientes.forEach(c => {
         const fila = `
             <tr>
-                <td>${c.id}</td>
+                <td>${c.id_cliente}</td>
                 <td>${c.nombre}</td>
                 <td>${c.edad}</td>
-                <td>${c.fechaRegistro ?? '---'}</td>
+                <td>${c.fechaRegistro || ""}</td>
             </tr>
         `;
         tbody.innerHTML += fila;
