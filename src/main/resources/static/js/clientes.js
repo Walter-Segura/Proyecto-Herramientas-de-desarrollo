@@ -1,4 +1,4 @@
-const api = "https://farmacia-backend-y367.onrender.com/api/clientes/listar";
+const api = "https://farmacia-backend-y367.onrender.com/api/clientes";
 
 document.getElementById("formCliente").addEventListener("submit", async (e) => {
     e.preventDefault();
