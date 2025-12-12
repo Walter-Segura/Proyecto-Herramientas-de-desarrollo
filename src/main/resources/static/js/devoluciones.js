@@ -1,4 +1,4 @@
-const API_DEV = "https://farmacia-backend-y367.onrender.com/api/devoluciones";
+const API_DEV = "https://farmacia-backend-y367.onrender.com/api/devoluciones/listar";
 
 document.addEventListener("DOMContentLoaded", () => {
     listarDevoluciones();
@@ -93,9 +93,10 @@ function verificarPilaDevoluciones() {
 }
 
 async function buscarMedicamentoPorNombre(nombre) {
-    const res = await fetch("https://farmacia-backend-y367.onrender.com/api/medicamentos");
+    const res = await fetch("https://farmacia-backend-y367.onrender.com/api/medicamentos/listar");
     const lista = await res.json();
 
     return lista.find(m => m.nombre.toLowerCase() === nombre.toLowerCase());
 }
+
 
