@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.ClienteService;
 import com.example.demo.service.MedicamentoService;
 import com.example.demo.service.DevolucionService;
 

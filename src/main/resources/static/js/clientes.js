@@ -23,9 +23,32 @@ document.getElementById("btnAtender").addEventListener("click", async () => {
 
 async function cargarClientes() {
     const res = await fetch(`${api}/listar`);
-    const data = await res.text(); // tu backend devuelve String
-    document.getElementById("listaClientes").textContent = data;
+    const texto = await res.text(); // backend devuelve String
+
+    document.getElementById("listaClientes").textContent = texto;
+
+    const tbody = document.querySelector("#tablaClientes tbody");
+    tbody.innerHTML = "";
+
+    // Cada cliente viene en una línea: ID - Nombre - Edad - Fecha
+    const lineas = texto.trim().split("\n");
+
+    lineas.forEach(linea => {
+        const partes = linea.split(" - ");
+        if (partes.length < 4) return;
+
+        const fila = `
+            <tr>
+                <td>${partes[0]}</td>
+                <td>${partes[1]}</td>
+                <td>${partes[2]}</td>
+                <td>${partes[3]}</td>
+            </tr>
+        `;
+        tbody.innerHTML += fila;
+    });
 }
+
 
 // cargar de inicio
 cargarClientes();
