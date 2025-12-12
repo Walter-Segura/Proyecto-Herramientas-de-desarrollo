@@ -27,6 +27,11 @@ public class DevolucionController {
         return service.listar();
     }
 
+    @GetMapping("/listar")
+    public List<Devolucion> listar2() {
+        return service.listar();
+    }
+
     @PostMapping
     public Devolucion guardar(@RequestBody Devolucion d) {
 
