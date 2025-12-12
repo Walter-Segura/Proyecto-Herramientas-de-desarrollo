@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function listarMedicamentos() {
-    fetch(API_MED)
+    fetch(`${API_MED}/listar`)
         .then(res => res.json())
         .then(data => {
             const tabla = document.querySelector("#tablaMedicamentos tbody");
@@ -51,7 +51,7 @@ function agregarMedicamento() {
         tipo: "General" // valor fijo para evitar null
     };
 
-    fetch(API_MED, {
+    fetch(`${API_BASE}/agregar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(obj)
