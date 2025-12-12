@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function listarMedicamentos() {
-    fetch(`${API_MED}/listar`)
+    fetch(`${API_MED}`)
         .then(res => res.json())
         .then(data => {
             const tabla = document.getElementById("tablaMedicamentos");
@@ -34,11 +34,12 @@ function agregarMedicamento() {
 
     const obj = { nombre, cantidad };
 
-    fetch(`${API_MED}/agregar`, {
+    fetch(`${API_MED}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(obj)
-    }).then(() => listarMedicamentos());
+    })
+    .then(() => listarMedicamentos());
 }
 
 function atenderMedicamento() {
