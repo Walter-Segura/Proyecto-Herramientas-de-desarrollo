@@ -4,15 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
     listarMedicamentos();
 
     document.getElementById("btnAgregarMed").addEventListener("click", agregarMedicamento);
-    document.getElementById("btnAtenderMed").addEventListener("click", atenderMedicamento);
-    document.getElementById("btnVerificarMed").addEventListener("click", verificarPilaMedicamentos);
+
+    // Desactivamos botones que no existen en backend
+    document.getElementById("btnAtenderMed").addEventListener("click", () => {
+        alert("Esta función no está implementada en el backend.");
+    });
+
+    document.getElementById("btnVerificarMed").addEventListener("click", () => {
+        alert("Esta función no está implementada en el backend.");
+    });
 });
 
 function listarMedicamentos() {
-    fetch(`${API_MED}/listar`)
+    fetch(API_MED)
         .then(res => res.json())
         .then(data => {
-            const tabla = document.getElementById("tablaMedicamentos");
+            const tabla = document.querySelector("#tablaMedicamentos tbody");
             tabla.innerHTML = "";
 
             data.forEach(m => {
@@ -20,9 +27,8 @@ function listarMedicamentos() {
                     <tr>
                         <td>${m.id_medicamento}</td>
                         <td>${m.nombre}</td>
-                        <td>${m.tipo}</td>
                         <td>${m.stock}</td>
-                        <td>${m.fecha_registro}</td>
+                        <td>${m.fecha_registro || ""}</td>
                     </tr>
                 `;
                 tabla.innerHTML += row;
@@ -31,20 +37,28 @@ function listarMedicamentos() {
 }
 
 function agregarMedicamento() {
-    const nombre = document.getElementById("nombreMed").value;
-    const stock = parseInt(document.getElementById("cantidadMed").value);
-    const tipo = document.getElementById("tipoMed").value;
+    const nombre = document.getElementById("nombreMed").value.trim();
+    const cantidad = document.getElementById("cantidadMed").value;
+
+    if (!nombre || !cantidad) {
+        alert("Nombre y cantidad son obligatorios.");
+        return;
+    }
 
     const obj = {
-        nombre,
-        tipo,
-        stock,
-        fecha_registro: new Date().toISOString()
+        nombre: nombre,
+        stock: cantidad,
+        tipo: "General" // valor fijo para evitar null
     };
 
-    fetch(`${API_MED}/agregar`, {
+    fetch(API_MED, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(obj)
-    }).then(() => listarMedicamentos());
+    })
+    .then(() => {
+        listarMedicamentos();
+        document.getElementById("nombreMed").value = "";
+        document.getElementById("cantidadMed").value = "";
+    });
 }
