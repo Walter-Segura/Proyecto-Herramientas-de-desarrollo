@@ -1,4 +1,5 @@
-const API_DEV = "https://farmacia-backend-y367.onrender.com/api/devoluciones/listar";
+const resp = await fetch("http://localhost:8080/api/medicamentos");
+const lista = await resp.json();
 
 document.addEventListener("DOMContentLoaded", () => {
     listarDevoluciones();
