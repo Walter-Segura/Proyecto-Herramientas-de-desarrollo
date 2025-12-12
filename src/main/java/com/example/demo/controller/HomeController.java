@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @Autowired
-    private ClienteService clienteService;
-
-    @Autowired
     private MedicamentoService medicamentoService;
 
     @Autowired
@@ -24,12 +21,6 @@ public class HomeController {
     @GetMapping("/")
     public String home() {
         return "index";
-    }
-
-    @GetMapping("/clientes")
-    public String clientes(Model model) {
-        model.addAttribute("clientes", clienteService.listar());
-        return "clientes";
     }
 
     @GetMapping("/medicamentos")
