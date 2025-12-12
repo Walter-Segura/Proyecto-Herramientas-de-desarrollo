@@ -1,5 +1,6 @@
-const resp = await fetch("http://localhost:8080/api/medicamentos");
-const lista = await resp.json();
+const API_BASE = "https://farmacia-backend-y367.onrender.com/api";
+const API_DEV = `${API_BASE}/devoluciones`;
+const API_MED = `${API_BASE}/medicamentos`;
 
 document.addEventListener("DOMContentLoaded", () => {
     listarDevoluciones();
@@ -21,7 +22,7 @@ function listarDevoluciones() {
                 const row = `
                     <tr>
                         <td>${d.id_devolucion}</td>
-                        <td>${d.medicamento?.nombre ?? d.nombre}</td>
+                        <td>${d.medicamento?.nombre}</td>
                         <td>${d.cantidad}</td>
                         <td>${d.fecha}</td>
                         <td>
@@ -55,17 +56,16 @@ async function registrarDevolucion() {
     }
 
     const obj = {
-        cantidad: 1,   // puedes cambiarlo
+        cantidad: 1,   // cambiar si quieres
         medicamento: { id_medicamento: med.id_medicamento }
     };
 
-    fetch("https://farmacia-backend-y367.onrender.com/api/devoluciones", {
+    fetch(API_DEV, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(obj)
     }).then(() => listarDevoluciones());
 }
-
 
 // ELIMINAR
 function eliminarDevolucion(id) {
@@ -76,7 +76,7 @@ function eliminarDevolucion(id) {
     }).then(() => listarDevoluciones());
 }
 
-// PROCESAR (requiere backend)
+// PROCESAR (si no existe en backend, dará 404)
 function procesarDevolucion() {
     fetch(`${API_DEV}/procesar`, { method: "POST" })
         .then(res => res.text())
@@ -86,18 +86,17 @@ function procesarDevolucion() {
         });
 }
 
-// VERIFICAR VACÍO (requiere backend)
+// VERIFICAR VACÍO (si no existe en backend, dará 404)
 function verificarPilaDevoluciones() {
     fetch(`${API_DEV}/vacia`)
         .then(res => res.text())
         .then(msg => alert(msg));
 }
 
+// BUSCAR MEDICAMENTO POR NOMBRE
 async function buscarMedicamentoPorNombre(nombre) {
-    const res = await fetch("https://farmacia-backend-y367.onrender.com/api/medicamentos/listar");
+    const res = await fetch(API_MED);
     const lista = await res.json();
 
     return lista.find(m => m.nombre.toLowerCase() === nombre.toLowerCase());
 }
-
-
