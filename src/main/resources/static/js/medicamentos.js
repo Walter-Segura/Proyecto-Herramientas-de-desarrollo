@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function listarMedicamentos() {
-    fetch(`${API_MED}`)
+    fetch(`${API_MED}/listar`)
         .then(res => res.json())
         .then(data => {
             const tabla = document.getElementById("tablaMedicamentos");
@@ -18,9 +18,11 @@ function listarMedicamentos() {
             data.forEach(m => {
                 const row = `
                     <tr>
-                        <td>${m.id}</td>
+                        <td>${m.id_medicamento}</td>
                         <td>${m.nombre}</td>
-                        <td>${m.cantidad}</td>
+                        <td>${m.tipo}</td>
+                        <td>${m.stock}</td>
+                        <td>${m.fecha_registro}</td>
                     </tr>
                 `;
                 tabla.innerHTML += row;
@@ -30,29 +32,19 @@ function listarMedicamentos() {
 
 function agregarMedicamento() {
     const nombre = document.getElementById("nombreMed").value;
-    const cantidad = document.getElementById("cantidadMed").value;
+    const stock = parseInt(document.getElementById("cantidadMed").value);
+    const tipo = document.getElementById("tipoMed").value;
 
-    const obj = { nombre, cantidad };
+    const obj = {
+        nombre,
+        tipo,
+        stock,
+        fecha_registro: new Date().toISOString()
+    };
 
-    fetch(`${API_MED}`, {
+    fetch(`${API_MED}/agregar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(obj)
-    })
-    .then(() => listarMedicamentos());
-}
-
-function atenderMedicamento() {
-    fetch(`${API_MED}/procesar`, { method: "POST" })
-        .then(res => res.text())
-        .then(msg => {
-            alert(msg);
-            listarMedicamentos();
-        });
-}
-
-function verificarPilaMedicamentos() {
-    fetch(`${API_MED}/vacia`)
-        .then(res => res.text())
-        .then(msg => alert(msg));
+    }).then(() => listarMedicamentos());
 }

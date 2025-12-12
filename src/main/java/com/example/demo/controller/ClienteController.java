@@ -4,6 +4,7 @@ import com.example.demo.model.Cliente;
 import com.example.demo.service.ClienteService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,9 @@ public class ClienteController {
 
     @PostMapping("/agregar")
     public Cliente guardar(@RequestBody Cliente c) {
+        if (c.getFecha_registro() == null) {
+            c.setFecha_registro(LocalDateTime.now());
+        }
         return service.guardar(c);
     }
 
