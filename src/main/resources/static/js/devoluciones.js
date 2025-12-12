@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function listarDevoluciones() {
-    fetch(`${API_DEV}/listar`)
+    fetch(API_DEV)
         .then(res => res.json())
         .then(data => {
             const tabla = document.getElementById("tablaDevoluciones");
@@ -18,9 +18,13 @@ function listarDevoluciones() {
             data.forEach(d => {
                 const row = `
                     <tr>
-                        <td>${d.id}</td>
-                        <td>${d.nombre}</td>
-                        <td>${d.motivo}</td>
+                        <td>${d.id_devolucion}</td>
+                        <td>${d.medicamento?.nombre ?? d.nombre}</td>
+                        <td>${d.cantidad}</td>
+                        <td>${d.fecha}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarDevolucion(${d.id_devolucion})">Eliminar</button>
+                        </td>
                     </tr>
                 `;
                 tabla.innerHTML += row;
@@ -54,4 +58,12 @@ function verificarPilaDevoluciones() {
     fetch(`${API_DEV}/vacia`)
         .then(res => res.text())
         .then(msg => alert(msg));
+}
+
+function eliminarDevolucion(id) {
+    if (!confirm("¿Seguro que deseas eliminar esta devolución?")) return;
+
+    fetch(`${API_DEV}/${id}`, {
+        method: "DELETE"
+    }).then(() => listarDevoluciones());
 }

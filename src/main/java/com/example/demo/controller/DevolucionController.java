@@ -40,4 +40,10 @@ public class DevolucionController {
         d.setMedicamento(med);
         return service.guardar(d);
     }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Integer id) {
+        service.eliminar(id);
+    }
+
 }

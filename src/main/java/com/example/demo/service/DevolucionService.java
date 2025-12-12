@@ -22,4 +22,8 @@ public class DevolucionService {
     public Devolucion guardar(Devolucion d) {
         return repo.save(d);
     }
+
+    public void eliminar(Integer id) {
+        repo.deleteById(id);
+    }
 }
