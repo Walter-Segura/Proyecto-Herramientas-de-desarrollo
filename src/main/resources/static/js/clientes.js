@@ -39,6 +39,22 @@ async function cargarClientes() {
         `;
         tbody.innerHTML += fila;
     });
+
+                data.forEach(m => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${m.id_medicamento}</td>
+                            <td>${m.nombre}</td>
+                            <td>${m.stock}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="eliminarMedicamento(${m.id_medicamento})">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
 }
 
 cargarClientes();

@@ -38,14 +38,12 @@
         <!-- Tabla renderizada por Thymeleaf (al cargar la página) -->
         <table class="table table-striped mt-3" id="tablaClientes">
             <thead class="table-dark">
-            <tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Fecha Registro</th></tr>
+            <tr><th>Nombre</th><th>Edad</th></tr>
             </thead>
             <tbody>
                 <tr th:each="c : ${clientes}">
-                    <td th:text="${c.id_cliente}">1</td>
                     <td th:text="${c.nombre}">Nombre</td>
                     <td th:text="${c.edad}">0</td>
-                    <td th:text="${c.fecha_registro}">fecha</td>
                 </tr>
             </tbody>
         </table>
