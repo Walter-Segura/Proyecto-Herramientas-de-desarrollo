@@ -17,18 +17,18 @@ public class ClienteController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Cliente> listar() {
         return service.listar();
     }
 
-    @PostMapping
+    @PostMapping("/agregar")
     public Cliente guardar(@RequestBody Cliente c) {
         return service.guardar(c);
     }
 
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Integer id) {
-        service.eliminar(id);
+    @PostMapping("/atender")
+    public Cliente atender() {
+        return service.atender();
     }
 }

@@ -12,43 +12,33 @@ document.getElementById("formCliente").addEventListener("submit", async (e) => {
         body: JSON.stringify({ nombre, edad })
     });
 
+    document.getElementById("formCliente").reset();
     cargarClientes();
 });
 
 document.getElementById("btnAtender").addEventListener("click", async () => {
-    // llamar al endpoint correcto
     await fetch(`${api}/atender`, { method: "POST" });
     cargarClientes();
 });
 
 async function cargarClientes() {
     const res = await fetch(`${api}/listar`);
-    const texto = await res.text(); // backend devuelve String
-
-    document.getElementById("listaClientes").textContent = texto;
+    const clientes = await res.json(); // ahora sí JSON
 
     const tbody = document.querySelector("#tablaClientes tbody");
     tbody.innerHTML = "";
 
-    // Cada cliente viene en una línea: ID - Nombre - Edad - Fecha
-    const lineas = texto.trim().split("\n");
-
-    lineas.forEach(linea => {
-        const partes = linea.split(" - ");
-        if (partes.length < 4) return;
-
+    clientes.forEach(c => {
         const fila = `
             <tr>
-                <td>${partes[0]}</td>
-                <td>${partes[1]}</td>
-                <td>${partes[2]}</td>
-                <td>${partes[3]}</td>
+                <td>${c.id}</td>
+                <td>${c.nombre}</td>
+                <td>${c.edad}</td>
+                <td>${c.fechaRegistro ?? '---'}</td>
             </tr>
         `;
         tbody.innerHTML += fila;
     });
 }
 
-
-// cargar de inicio
 cargarClientes();

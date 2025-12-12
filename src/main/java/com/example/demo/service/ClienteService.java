@@ -23,7 +23,18 @@ public class ClienteService {
         return repo.save(c);
     }
 
-    public void eliminar(Integer id) {
-        repo.deleteById(id);
+    public Cliente atender() {
+        List<Cliente> lista = repo.findAll();
+
+        if (lista.isEmpty()) {
+            return null;
+        }
+
+        Cliente primero = lista.get(0);
+
+        repo.deleteById(primero.getId_cliente());
+
+        return primero;
     }
+
 }
